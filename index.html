@@ -25,7 +25,7 @@
   <link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/brand/trilha-fundo-curvas-de-nivel.png" as="image">
-  <link rel="stylesheet" href="assets/styles.css?v=3">
+  <link rel="stylesheet" href="assets/styles.css?v=4">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -67,7 +67,7 @@
           <p class="hero-lede">A Trilha documenta os processos da sua empresa a partir das ferramentas que vocês já usam e mantém tudo atualizado.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contato">Documente seu primeiro processo grátis</a>
-            <a class="btn btn-secondary" href="#como-funciona">Ver como funciona</a>
+            <a class="btn btn-secondary" href="#como-funciona" data-video-open aria-haspopup="dialog" aria-controls="video-modal">Ver como funciona</a>
           </div>
           <p class="hero-note"><span class="dot dot-signal"></span>Grátis para começar. Sem cartão.</p>
         </div>
@@ -180,6 +180,21 @@
           <h2>Do trabalho real ao processo documentado.</h2>
           <p class="section-lede">Sem projeto de seis meses. A Trilha parte do que sua equipe já faz todos os dias.</p>
         </div>
+
+        <figure class="how-video">
+          <div class="how-video-frame">
+            <video class="how-video-player" controls muted playsinline preload="metadata" poster="assets/video/trilha-motion-poster.jpg" aria-label="Vídeo de 44 segundos mostrando como a Trilha documenta processos">
+              <source src="assets/video/trilha-motion-44s.mp4" type="video/mp4">
+              Seu navegador não suporta vídeo em HTML5. <a href="assets/video/trilha-motion-44s.mp4">Baixe o vídeo</a>.
+            </video>
+          </div>
+          <figcaption class="how-video-caption">
+            <p><span class="dot dot-signal"></span>44 segundos para ver a Trilha em movimento.</p>
+            <button class="video-open" type="button" data-video-open aria-haspopup="dialog" aria-controls="video-modal">Assistir com som
+              <svg class="icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M9 5l3 3-3 3"/></svg>
+            </button>
+          </figcaption>
+        </figure>
 
         <div class="how-steps">
           <article class="how-step">
@@ -563,6 +578,22 @@
     </div>
   </footer>
 
-  <script src="assets/site.js?v=2" defer></script>
+  <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="video-modal-title" hidden>
+    <div class="video-modal-backdrop" data-video-close></div>
+    <div class="video-modal-dialog">
+      <div class="video-modal-head">
+        <h2 id="video-modal-title">Trilha em movimento</h2>
+        <button class="video-modal-close" type="button" data-video-close aria-label="Fechar vídeo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <video class="video-modal-player" controls playsinline preload="metadata" poster="assets/video/trilha-motion-poster.jpg" aria-label="Vídeo de apresentação da Trilha">
+        <source src="assets/video/trilha-motion-44s.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo em HTML5. <a href="assets/video/trilha-motion-44s.mp4">Baixe o vídeo</a>.
+      </video>
+    </div>
+  </div>
+
+  <script src="assets/site.js?v=3" defer></script>
 </body>
 </html>

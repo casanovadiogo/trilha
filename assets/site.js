@@ -115,3 +115,79 @@ if (form && status) {
     }
   });
 }
+
+const videoModal = document.getElementById("video-modal");
+const modalVideo = videoModal ? videoModal.querySelector(".video-modal-player") : null;
+const videoTriggers = document.querySelectorAll("[data-video-open]");
+const videoClosers = videoModal ? videoModal.querySelectorAll("[data-video-close]") : [];
+const pageChrome = document.querySelectorAll(".site-header, main, .site-footer");
+const inlineVideo = document.querySelector(".how-video-player");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lastVideoTrigger = null;
+let inlineVideoInView = false;
+
+const openVideoModal = (event) => {
+  if (!videoModal || !modalVideo) return;
+  event.preventDefault();
+  lastVideoTrigger = event.currentTarget;
+  videoModal.hidden = false;
+  document.body.classList.add("video-modal-open");
+  pageChrome.forEach((element) => {
+    element.inert = true;
+  });
+  if (inlineVideo) inlineVideo.pause();
+  modalVideo.currentTime = 0;
+  const playPromise = modalVideo.play();
+  if (playPromise) playPromise.catch(() => {});
+  const closeButton = videoModal.querySelector(".video-modal-close");
+  if (closeButton) closeButton.focus();
+};
+
+const closeVideoModal = () => {
+  if (!videoModal || videoModal.hidden) return;
+  if (modalVideo) modalVideo.pause();
+  videoModal.hidden = true;
+  document.body.classList.remove("video-modal-open");
+  pageChrome.forEach((element) => {
+    element.inert = false;
+  });
+  if (lastVideoTrigger && typeof lastVideoTrigger.focus === "function") {
+    lastVideoTrigger.focus();
+  }
+  if (inlineVideo && inlineVideoInView && !reduceMotion) {
+    const playPromise = inlineVideo.play();
+    if (playPromise) playPromise.catch(() => {});
+  }
+};
+
+if (videoModal && modalVideo) {
+  videoTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", openVideoModal);
+  });
+  videoClosers.forEach((closer) => {
+    closer.addEventListener("click", closeVideoModal);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !videoModal.hidden) closeVideoModal();
+  });
+}
+
+if (inlineVideo && "IntersectionObserver" in window) {
+  inlineVideo.muted = true;
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      inlineVideoInView = entry.isIntersecting && entry.intersectionRatio >= 0.5;
+      if (videoModal && !videoModal.hidden) {
+        inlineVideo.pause();
+        return;
+      }
+      if (inlineVideoInView && !reduceMotion) {
+        const playPromise = inlineVideo.play();
+        if (playPromise) playPromise.catch(() => {});
+      } else {
+        inlineVideo.pause();
+      }
+    });
+  }, { threshold: [0, 0.5, 0.75] });
+  videoObserver.observe(inlineVideo);
+}
