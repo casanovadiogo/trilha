@@ -254,14 +254,10 @@ textarea {
   color: var(--ink);
 }
 
-.icon-box svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.55;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.icon-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
 .icon-box-large {
@@ -270,57 +266,53 @@ textarea {
   border-radius: 14px;
 }
 
-.icon-box-large svg {
-  width: 28px;
-  height: 28px;
+.icon-box-large .icon-img {
+  width: 38px;
+  height: 38px;
 }
 
-.icon-box .icon-dot,
-.lgpd-pill .icon-dot {
-  fill: var(--signal);
-  stroke: none;
-}
-
-.topo {
+.topo-bg {
   position: absolute;
   z-index: 0;
+  background-repeat: no-repeat;
+  background-position: center;
   pointer-events: none;
 }
 
 .topo-hero {
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.95;
+  background-image: url("brand/trilha-fundo-curvas-de-nivel.png");
+  background-size: 130% auto;
+  background-position: left top;
 }
 
 .topo-plans {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 340px;
-  opacity: 0.8;
+  inset: 0;
+  background-image: url("brand/trilha-fundo-curvas-de-nivel.png");
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.5;
 }
 
 .topo-dark {
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.12;
+  background-image: url("brand/trilha-fundo-faixa-escura.png");
+  background-size: cover;
 }
 
 .topo-consulting {
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.16;
+  background-image: url("brand/trilha-fundo-faixa-escura.png");
+  background-size: cover;
+  opacity: 0.92;
 }
 
 .topo-footer {
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.1;
+  background-image: url("brand/trilha-fundo-faixa-escura.png");
+  background-size: cover;
+  background-position: center bottom;
+  opacity: 0.55;
 }
 
 .trilha-fundo-faixa-escura {
@@ -330,7 +322,7 @@ textarea {
   color: var(--white);
 }
 
-.trilha-fundo-faixa-escura > :not(.topo) {
+.trilha-fundo-faixa-escura > :not(.topo-bg) {
   position: relative;
   z-index: 1;
 }
@@ -341,7 +333,7 @@ textarea {
   background: var(--paper);
 }
 
-.trilha-fundo-secao-clara > :not(.topo) {
+.trilha-fundo-secao-clara > :not(.topo-bg) {
   position: relative;
   z-index: 1;
 }
@@ -406,33 +398,15 @@ section[id] {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  min-height: 44px;
+  flex: none;
   text-decoration: none;
 }
 
-.logo-mark {
-  width: 36px;
-  height: 36px;
-  flex: none;
-}
-
-.logo-mark path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.logo-mark .logo-dot {
-  fill: var(--signal);
-  stroke: none;
+.brand img {
+  display: block;
+  width: auto;
+  height: 40px;
 }
 
 .main-nav {
@@ -620,14 +594,11 @@ section[id] {
   color: var(--slate);
 }
 
-.app-icon {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: var(--slate);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.app-mark {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 7px;
 }
 
 .product-meta {
@@ -859,11 +830,11 @@ section[id] {
   letter-spacing: -0.04em;
 }
 
-.step-beacon {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--signal);
+.step-icon {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  object-fit: contain;
 }
 
 .how-step h3 {
@@ -1293,14 +1264,11 @@ section[id] {
   color: var(--white);
 }
 
-.consulting-icon svg {
+.consulting-img {
   width: 48px;
   height: 48px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .consulting-main h3 {
@@ -1747,6 +1715,17 @@ section[id] {
     margin-left: auto;
   }
 
+  .brand img {
+    height: 36px;
+  }
+
+  .topo-hero {
+    bottom: auto;
+    height: 900px;
+    background-size: cover;
+    background-position: 72% top;
+  }
+
   .hero {
     padding-bottom: 80px;
   }
@@ -1850,6 +1829,14 @@ section[id] {
 @media (max-width: 640px) {
   .container {
     width: calc(100% - 32px);
+  }
+
+  .brand img {
+    height: 34px;
+  }
+
+  .topo-hero {
+    background-position: 60% top;
   }
 
   .section {
@@ -2029,12 +2016,7 @@ section[id] {
     display: none;
   }
 
-  .brand {
-    font-size: 24px;
-  }
-
-  .logo-mark {
-    width: 32px;
+  .brand img {
     height: 32px;
   }
 
